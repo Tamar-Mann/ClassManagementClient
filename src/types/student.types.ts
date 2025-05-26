@@ -7,3 +7,4 @@ export type StudentType  = UserType & {
     arrImage?: string,
     fileImage: File | null
 }
+
