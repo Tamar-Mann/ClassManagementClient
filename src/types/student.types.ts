@@ -5,5 +5,5 @@ export type StudentType  = UserType & {
     classItem: ClassType,
     chairId?: number,
     arrImage?: string,
-    fileImage: null
+    fileImage: File | null
 }
