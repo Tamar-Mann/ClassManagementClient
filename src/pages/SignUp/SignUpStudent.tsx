@@ -9,6 +9,8 @@ import {
   validatePassword,
 } from "../../utils/validators";
 
+//alerts?!...
+
 export const StudentSignUpPage = () => {
   const [password, setPassword] = useState("");
 
