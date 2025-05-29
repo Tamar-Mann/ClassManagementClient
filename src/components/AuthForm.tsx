@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-
-type FieldType = {
-  name: string;
-  label: string;
-  type?: string;
-  required?: boolean;
-  customInput?: React.ReactNode;
-};
-
-export type { FieldType };
+import {FieldType} from "../types/field.types"
 
 export const AuthForm: React.FC<{
   title: string;
