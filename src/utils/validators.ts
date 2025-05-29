@@ -18,13 +18,3 @@ export const validatePhone = (phone: string): boolean =>
 export const validatePassword = (password: string): boolean =>
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password);
 
-
-//חשוב כדי למנוע כפילות קוד!!
-// export const validateDateOfBirth = (dateString: string): boolean => {
-//   const date = new Date(dateString);
-//   const now = new Date();
-//   const earliestDate = new Date("1900-01-01");
-//   if (isNaN(date.getTime())) return false;
-//   if (date < earliestDate || date > now) return false;
-//   return true;
-// };

@@ -1,54 +1,56 @@
 import React, { useState } from "react";
-import { AuthForm, FieldType } from "../../components/AuthForm";
+import { AuthForm } from "../../components/AuthForm";
 import { PasswordInputChecklist } from "../../components/PasswordInputChecklist";
 import { TeacherType } from "../../types/teacher.types";
 import { RoleType } from "../../types/Enums/roleEnum.types";
 import { validateIsraeliID, validateEmail, validatePhone, validatePassword } from "../../utils/validators";
+import { FieldType } from "../../types/field.types";
 
+// useState!
 export const TeacherSignUpPage = () => {
   const [password, setPassword] = useState("");
 
   const teacherFields: FieldType[] = [
-    { name: "id", label: "תעודת זהות", required: true },
+    { name: "id", label: "ID Number", required: true },
     {
       name: "password",
-      label: "סיסמה",
+      label: "Password",
       required: true,
       customInput: <PasswordInputChecklist value={password} onChange={setPassword} />,
     },
-    { name: "name", label: "שם מלא", required: true },
-    { name: "dateOfBirth", label: "תאריך לידה", type: "date", required: true },
-    { name: "address", label: "כתובת", required: true },
-    { name: "email", label: "אימייל", type: "email", required: true },
-    { name: "phone", label: "טלפון", required: true },
+    { name: "name", label: "Full Name", required: true },
+    { name: "dateOfBirth", label: "Date of Birth", type: "date", required: true },
+    { name: "address", label: "Address", required: true },
+    { name: "email", label: "Email", type: "email", required: true },
+    { name: "phone", label: "Phone", required: true },
   ];
 
   const handleSubmit = (data: Record<string, any>) => {
     data.password = password;
 
-        // בדיקת תאריך לידה תקין
-        const date = new Date(data.dateOfBirth || "");
-        const now = new Date();
-        const earliestDate = new Date("1900-01-01");
-        if (isNaN(date.getTime()) || date < earliestDate || date > now) {
-          alert("תאריך לידה לא תקין");
-          return;
-        }
-    
+    // Validate date of birth
+    const date = new Date(data.dateOfBirth || "");
+    const now = new Date();
+    const earliestDate = new Date("1900-01-01");
+    if (isNaN(date.getTime()) || date < earliestDate || date > now) {
+      alert("Invalid date of birth");
+      return;
+    }
+
     if (!validateIsraeliID(data.id)) {
-      alert("תעודת זהות לא תקינה");
+      alert("Invalid ID number");
       return;
     }
     if (!validatePassword(password)) {
-      alert("הסיסמה לא עומדת בדרישות האבטחה.");
+      alert("Password does not meet security requirements.");
       return;
     }
     if (!validateEmail(data.email)) {
-      alert("אימייל לא תקין");
+      alert("Invalid email");
       return;
     }
     if (!validatePhone(data.phone)) {
-      alert("מספר טלפון לא תקין");
+      alert("Invalid phone number");
       return;
     }
 
@@ -64,16 +66,16 @@ export const TeacherSignUpPage = () => {
     };
 
     console.log("Teacher object:", teacher);
-    // TODO: קריאה ל-API למשלוח הנתונים
+    // TODO: API call to send data
   };
 
   return (
     <AuthForm
-      title="הרשמת מורה"
+      title="Teacher Registration"
       fields={teacherFields}
       onSubmit={handleSubmit}
-      submitText="הרשם"
-      footer={<p>כבר רשום? <a href="/auth/login">התחבר כאן</a></p>}
+      submitText="Register"
+      footer={<p>Already registered? <a href="/auth/login">Login here</a></p>}
     />
   );
 };

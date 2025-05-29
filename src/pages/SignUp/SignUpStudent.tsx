@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { AuthForm } from "../../components/AuthForm";
 import { PasswordInputChecklist } from "../../components/PasswordInputChecklist";
 import { StudentType } from "../../types/student.types";
@@ -7,16 +8,15 @@ import {
   validatePhone,
   validatePassword,
 } from "../../utils/validators";
-import React, { useState } from "react";
 
 export const StudentSignUpPage = () => {
   const [password, setPassword] = useState("");
 
   const studentFields = [
-    { name: "id", label: "תעודת זהות", required: true },
+    { name: "id", label: "ID Number", required: true },
     {
       name: "password",
-      label: "סיסמה",
+      label: "Password",
       required: true,
       customInput: (
         <PasswordInputChecklist
@@ -27,50 +27,50 @@ export const StudentSignUpPage = () => {
         />
       ),
     },
-    { name: "name", label: "שם מלא", required: true },
-    { name: "classId", label: "קוד כיתה", type: "number", required: true },
-    { name: "dateOfBirth", label: "תאריך לידה", type: "date", required: true },
-    { name: "address", label: "כתובת", required: true },
-    { name: "email", label: "אימייל", type: "email", required: true },
-    { name: "phone", label: "טלפון", required: true },
-    { name: "fileImage", label: "תמונה", type: "file", required: true },
+    { name: "name", label: "Full Name", required: true },
+    { name: "classId", label: "Class Code", type: "number", required: true },
+    { name: "dateOfBirth", label: "Date of Birth", type: "date", required: true },
+    { name: "address", label: "Address", required: true },
+    { name: "email", label: "Email", type: "email", required: true },
+    { name: "phone", label: "Phone", required: true },
+    { name: "fileImage", label: "Image", type: "file", required: true },
   ];
 
   const handleSubmit = (data: Partial<StudentType>) => {
     const pw = password || (data.password ?? "");
-  
-        // בדיקת תאריך לידה תקין
+
+    // Validate date of birth
     const date = new Date(data.dateOfBirth || "");
     const now = new Date();
     const earliestDate = new Date("1900-01-01");
     if (isNaN(date.getTime()) || date < earliestDate || date > now) {
-      alert("תאריך לידה לא תקין");
+      alert("Invalid date of birth");
       return;
     }
 
     if (!validateIsraeliID(data.id || "")) {
-      alert("תעודת זהות לא תקינה");
+      alert("Invalid ID number");
       return;
     }
     if (!validatePassword(pw)) {
       alert(
-        "הסיסמה חייבת לכלול לפחות 8 תווים, אות גדולה, אות קטנה, מספר ותו מיוחד"
+        "Password must include at least 8 characters, uppercase letter, lowercase letter, number, and special character"
       );
       return;
     }
     if (!validateEmail(data.email || "")) {
-      alert("אימייל לא תקין");
+      alert("Invalid email");
       return;
     }
     if (!validatePhone(data.phone || "")) {
-      alert("מספר טלפון לא תקין");
+      alert("Invalid phone number");
       return;
     }
     if (!(data.fileImage instanceof File)) {
-      alert("נא לצרף קובץ תמונה תקין");
+      alert("Please attach a valid image file");
       return;
     }
-  
+
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       if (!value) return;
@@ -82,23 +82,22 @@ export const StudentSignUpPage = () => {
         formData.append(key, value as any);
       }
     });
-  
+
     formData.append("password", pw);
-  
-    console.log("נשלח לשרת:", Array.from(formData.entries()));
+
+    console.log("Sending to server:", Array.from(formData.entries()));
     // await axios.post("/api/student", formData);
   };
-  
 
   return (
     <AuthForm
-      title="הרשמת תלמיד"
+      title="Student Registration"
       fields={studentFields}
       onSubmit={handleSubmit}
-      submitText="הרשם"
+      submitText="Register"
       footer={
         <p>
-          כבר רשום? <a href="/auth/login">התחבר כאן</a>
+          Already registered? <a href="/auth/login">Login here</a>
         </p>
       }
     />

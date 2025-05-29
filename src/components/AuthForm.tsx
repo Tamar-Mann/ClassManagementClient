@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {FieldType} from "../types/field.types"
+import { FieldType } from "../types/field.types";
+import "./css/AuthForm.css";
 
 export const AuthForm: React.FC<{
   title: string;
@@ -7,16 +8,15 @@ export const AuthForm: React.FC<{
   onSubmit: (data: Record<string, any>) => void;
   submitText?: string;
   footer?: React.ReactNode;
-}> = ({ title, fields, onSubmit, submitText = "שלח", footer }) => {
+}> = ({ title, fields, onSubmit, submitText = "Submit", footer }) => {
   const [formData, setFormData] = useState<Record<string, any>>({});
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, type, value, files } = e.target as HTMLInputElement;
-
     if (type === "file") {
-      setFormData((prev) => ({ ...prev, [name]: files && files[0] ? files[0] : null }));
+      setFormData((prev) => ({ ...prev, [name]: files?.[0] || null }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -28,10 +28,10 @@ export const AuthForm: React.FC<{
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: "auto" }}>
+    <form onSubmit={handleSubmit} className="auth-form">
       <h2>{title}</h2>
       {fields.map(({ name, label, type = "text", required, customInput }) => (
-        <div key={name} style={{ marginBottom: "1rem" }}>
+        <div key={name} className="form-group">
           <label htmlFor={name}>{label}:</label>
           {customInput ? (
             customInput
@@ -48,7 +48,7 @@ export const AuthForm: React.FC<{
         </div>
       ))}
       <button type="submit">{submitText}</button>
-      {footer && <div style={{ marginTop: "1rem" }}>{footer}</div>}
+      {footer && <div className="form-footer">{footer}</div>}
     </form>
   );
 };
