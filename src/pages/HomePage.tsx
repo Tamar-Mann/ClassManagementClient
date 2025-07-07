@@ -1,6 +1,11 @@
-import Home from "../sections/home/main"
-const HomePage = () => {
-    return <Home/>
-}
+import Home from "../sections/home/Home";
 
-export default HomePage
+const HomePage = () => {
+  return (
+    <div className="home-page">
+      <Home />
+    </div>
+  );
+};
+
+export default HomePage;

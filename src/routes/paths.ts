@@ -4,4 +4,5 @@ export const Paths = {
     signUpTeacher: 'signUpTeacher',
     signUpStudent: 'signUpStudent',
     home: 'home',
+    seating: 'seating'
 }

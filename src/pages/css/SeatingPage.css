@@ -1,0 +1,46 @@
+/* File: src/styles/pages/SeatingPage.css */
+
+.seating-page {
+    padding: 2rem;
+    direction: rtl;
+    font-family: Arial, sans-serif;
+  }
+  
+  .seating-page h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .seating-grid {
+    margin: 0 auto;
+    border-collapse: collapse;
+  }
+  
+  .chair-cell {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    text-align: center;
+    width: 100px;
+    height: 80px;
+    vertical-align: middle;
+  }
+  
+  .chair-box {
+    background-color: #d9f0ff;
+    border-radius: 6px;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  
+  .chair-id {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+  }
+  
+  .empty-box {
+    color: #bbb;
+    font-size: 1.2rem;
+  }
+  

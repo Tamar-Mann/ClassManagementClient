@@ -3,7 +3,7 @@ import { AuthForm } from "../../components/AuthForm";
 import { UserType } from "../../types/userLogin.types";
 
 export const StudentSignInPage = () => {
-
+  
   const studentFields = [
     { name: "email", label: "email", required: true },
     { name: "password", label: "password", required: true },
