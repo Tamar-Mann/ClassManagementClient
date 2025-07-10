@@ -17,11 +17,13 @@ const TeacherNav = () => {
       classService.getByTeacherId(user.id).then(setClasses).catch(console.error);
     }
   }, []);
+  console.log(classes)
 
   return (
     <ul>
       {classes.map((cls) => (
         <li key={cls.id}>
+          <h1>class</h1>
           <Link to={`/teacher/class/${cls.id}`}>Class {cls.name}</Link>
         </li>
       ))}
