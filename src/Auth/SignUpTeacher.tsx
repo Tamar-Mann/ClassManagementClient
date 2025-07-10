@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { AuthForm } from "./AuthForm";
 import { PasswordInputChecklist } from "./PasswordInputChecklist";
-import { TeacherType } from "../types/teacher.types";
-import { RoleType } from "../types/Enums/roleEnum.types";
 import {
   validateIsraeliID,
   validateEmail,
@@ -10,9 +8,20 @@ import {
   validatePassword,
 } from "../utils/validators";
 import { FieldType } from "../types/field.types";
+import { teacherService } from "../services/teacher.service";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { loginSuccess, setUser } from "../redux/slices/authSlice";
+import { extractUserFromToken } from "../utils/jwt";
+import { Paths } from "../routes/paths";
+
+
 
 export const SignUpTeacher = () => {
   const [password, setPassword] = useState("");
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
 
   const teacherFields: FieldType[] = [
     { name: "id", label: "ID Number", required: true },
@@ -31,47 +40,83 @@ export const SignUpTeacher = () => {
     { name: "phone", label: "Phone", required: true },
   ];
 
-  const handleSubmit = (data: Record<string, any>) => {
-    data.password = password;
+  const handleSubmit = async (data: Record<string, any>) => {
+    try {
+      const pw = password || data.password || "";
 
-    const date = new Date(data.dateOfBirth || "");
-    const now = new Date();
-    const earliestDate = new Date("1900-01-01");
-    if (isNaN(date.getTime()) || date < earliestDate || date > now) {
-      alert("Invalid date of birth");
-      return;
-    }
+      // בדיקות תקינות
+      const date = new Date(data.dateOfBirth || "");
+      const now = new Date();
+      const earliestDate = new Date("1900-01-01");
+      if (isNaN(date.getTime()) || date < earliestDate || date > now) {
+        alert("Invalid date of birth");
+        return;
+      }
 
-    if (!validateIsraeliID(data.id)) {
-      alert("Invalid ID number");
-      return;
-    }
-    if (!validatePassword(password)) {
-      alert("Password does not meet requirements.");
-      return;
-    }
-    if (!validateEmail(data.email)) {
-      alert("Invalid email");
-      return;
-    }
-    if (!validatePhone(data.phone)) {
-      alert("Invalid phone number");
-      return;
-    }
+      if (!validateIsraeliID(data.id || "")) {
+        alert("Invalid ID number");
+        return;
+      }
+      if (!validatePassword(pw)) {
+        alert("Password does not meet requirements.");
+        return;
+      }
+      if (!validateEmail(data.email || "")) {
+        alert("Invalid email");
+        return;
+      }
+      if (!validatePhone(data.phone || "")) {
+        alert("Invalid phone number");
+        return;
+      }
 
-    const teacher: TeacherType = {
-      id: data.id,
-      password: data.password,
-      name: data.name,
-      dateOfBirth: date,
-      address: data.address,
-      email: data.email,
-      phone: data.phone,
-      role: RoleType.Admin,
-    };
+      // יצירת FormData
+      const formData = new FormData();
+      const keysToSkip = ["classId", "classItem", "chairId", "arrImage", "fileImage"];
 
-    console.log("Teacher to register:", teacher);
-    // TODO: send teacher to API
+      Object.entries(data).forEach(([key, value]) => {
+        if (!value || keysToSkip.includes(key)) return;
+
+        if (key === "dateOfBirth") {
+          const formattedDate = date.toISOString().split("T")[0]; // נותן '2025-07-03'
+          formData.append("dateOfBirth", formattedDate);
+        } else {
+          formData.append(key, value as any);
+        }
+      });
+
+      formData.append("password", pw);
+
+      // הדפסה לבדיקה
+      console.log("FormData sending:");
+        formData.forEach((value, key) => {
+        console.log(key, value);
+      });
+
+      // שליחה לשרת
+      await teacherService.create(formData);
+      alert("Teacher registered successfully!");
+      // 🔐 התחברות אוטומטית לאחר הרשמה
+      const token = await teacherService.login({
+        email: data.email,
+        password: password,
+      });
+
+      // 🔁 שמירה ל־Redux או Context
+      dispatch(loginSuccess({ token }));
+
+      const user = extractUserFromToken(token);
+      if (!user) throw new Error("Invalid token after registration");
+
+      dispatch(setUser(user));
+
+      //   ⏩ ניתוב לדף הבית של מורה
+      navigate(Paths.homeTeacher);
+
+    } catch (error) {
+      console.error("Teacher registration failed:", error);
+      alert("Failed to register teacher");
+    }
   };
 
   return (

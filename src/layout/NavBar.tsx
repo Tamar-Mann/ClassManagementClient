@@ -10,18 +10,28 @@ const NavBar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo-area">
+      {/* <div className="logo-area">
         <img src={logo} alt="Hi(gh) Class Logo" className="logo-img" />
-      </div>
+      </div> */}
 
       {user && (
         <div className="nav-links">
-          {user.role === RoleType.Admin && <TeacherNav />}
+          
+          {user.role === RoleType.Admin && (
+             <>
+              <TeacherNav />
+              <img src={logo} alt="Hi(gh) Class Logo" className="logo-img" />
+            </>
+          )}
           {(user.role === RoleType.User || user.role === RoleType.AuthorizedUser) && (
-            <StudentNav />
+            <>
+              <StudentNav />
+              <img src={logo} alt="Hi(gh) Class Logo" className="logo-img" />
+            </>
           )}
           {user.role === RoleType.Master && (
             <>
+              <img src={logo} alt="Hi(gh) Class Logo" className="logo-img" />
               <TeacherNav />
               <StudentNav />
             </>

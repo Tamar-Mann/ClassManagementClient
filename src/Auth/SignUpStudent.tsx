@@ -9,9 +9,17 @@ import {
   validatePassword,
 } from "../utils/validators";
 import { FieldType } from "../types/field.types";
+import { studentService } from "../services/student.service";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { loginSuccess, setUser } from "../redux/slices/authSlice";
+import { extractUserFromToken } from "../utils/jwt";
+import { Paths } from "../routes/paths";
 
 export const SignUpStudent = () => {
   const [password, setPassword] = useState("");
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const studentFields: FieldType[] = [
     { name: "id", label: "ID Number", required: true },
@@ -37,53 +45,80 @@ export const SignUpStudent = () => {
     { name: "fileImage", label: "Image", type: "file", required: true },
   ];
 
-  const handleSubmit = (data: Partial<StudentType>) => {
-    const pw = password || data.password || "";
+  const handleSubmit = async (data: Partial<StudentType>) => {
+    try {
+      const pw = password || data.password || "";
 
-    const date = new Date(data.dateOfBirth || "");
-    const now = new Date();
-    const earliestDate = new Date("1900-01-01");
-    if (isNaN(date.getTime()) || date < earliestDate || date > now) {
-      alert("Invalid date of birth");
-      return;
-    }
-
-    if (!validateIsraeliID(data.id || "")) {
-      alert("Invalid ID number");
-      return;
-    }
-    if (!validatePassword(pw)) {
-      alert("Password must meet security requirements");
-      return;
-    }
-    if (!validateEmail(data.email || "")) {
-      alert("Invalid email");
-      return;
-    }
-    if (!validatePhone(data.phone || "")) {
-      alert("Invalid phone number");
-      return;
-    }
-    if (!(data.fileImage instanceof File)) {
-      alert("Please attach a valid image file");
-      return;
-    }
-
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (!value) return;
-      if (key === "dateOfBirth") {
-        formData.append(key, new Date(value as string).toISOString());
-      } else if (key === "fileImage" && value instanceof File) {
-        formData.append(key, value);
-      } else {
-        formData.append(key, value as any);
+      const date = new Date(data.dateOfBirth || "");
+      const now = new Date();
+      const earliestDate = new Date("1900-01-01");
+      if (isNaN(date.getTime()) || date < earliestDate || date > now) {
+        alert("Invalid date of birth");
+        return;
       }
-    });
 
-    formData.append("password", pw);
-    console.log("Sending to server:", Array.from(formData.entries()));
-    // TODO: send formData to API
+      if (!validateIsraeliID(data.id || "")) {
+        alert("Invalid ID number");
+        return;
+      }
+      if (!validatePassword(pw)) {
+        alert("Password must meet security requirements");
+        return;
+      }
+      if (!validateEmail(data.email || "")) {
+        alert("Invalid email");
+        return;
+      }
+      if (!validatePhone(data.phone || "")) {
+        alert("Invalid phone number");
+        return;
+      }
+      if (!(data.fileImage instanceof File)) {
+        alert("Please attach a valid image file");
+        return;
+      }
+
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (!value) return;
+
+        if (key === "dateOfBirth") {
+          const formattedDate = new Date(value as string).toISOString().split("T")[0];
+          formData.append("dateOfBirth", formattedDate);
+        } else if (key === "fileImage" && value instanceof File) {
+          formData.append("fileImage", value);
+        } else {
+          formData.append(key, value as any);
+        }
+      });
+
+      formData.append("password", pw);
+
+      console.log("FormData sending:");
+      formData.forEach((v, k) => console.log(k, v));
+
+      // שליחת הרשמה לשרת
+      await studentService.create(formData);
+      alert("Student registered successfully!");
+
+      // התחברות מיידית
+      const token = await studentService.login({
+        email: data.email!,
+        password: pw,
+      });
+
+      dispatch(loginSuccess({ token }));
+
+      const user = extractUserFromToken(token);
+      if (!user) throw new Error("Invalid token after registration");
+
+      dispatch(setUser(user));
+
+      navigate(Paths.homeStudent);
+    } catch (error) {
+      console.error("Student registration failed:", error);
+      alert("Failed to register student");
+    }
   };
 
   return (

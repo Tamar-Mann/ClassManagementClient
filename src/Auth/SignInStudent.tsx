@@ -6,6 +6,7 @@ import { useAppDispatch } from "../redux/hooks";
 import { loginSuccess, setUser } from "../redux/slices/authSlice";
 import { extractUserFromToken } from "../utils/jwt";
 import { useNavigate } from "react-router-dom";
+import { Paths } from "../routes/paths";
 
 export const SignInStudent = () => {
   const dispatch = useAppDispatch();
@@ -28,12 +29,12 @@ export const SignInStudent = () => {
       if (user.role === RoleType.Master) {
         navigate("/master/dashboard"); // או כל מסך שתרצי בהמשך
       } else if (user.role === RoleType.Admin) {
-        navigate("/teacher/home");
+        navigate(Paths.homeTeacher);
       } else if (
         user.role === RoleType.User ||
         user.role === RoleType.AuthorizedUser
       ) {
-        navigate("/student/home");
+        navigate(Paths.homeStudent);
       } else {
         alert("Unrecognized role");
       }
