@@ -3,6 +3,8 @@ export const Paths = {
     signInStudent: 'signInStudent',
     signUpTeacher: 'signUpTeacher',
     signUpStudent: 'signUpStudent',
+    homeStudent:'homeStudent',
+    homeTeacher:'homeTeacher',
     home: 'home',
     seating: 'seating'
 }

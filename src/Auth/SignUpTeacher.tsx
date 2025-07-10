@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { AuthForm } from "../../components/AuthForm";
-import { PasswordInputChecklist } from "../../components/PasswordInputChecklist";
-import { TeacherType } from "../../types/teacher.types";
-import { RoleType } from "../../types/Enums/roleEnum.types";
-import { validateIsraeliID, validateEmail, validatePhone, validatePassword } from "../../utils/validators";
-import { FieldType } from "../../types/field.types";
+import { AuthForm } from "./AuthForm";
+import { PasswordInputChecklist } from "./PasswordInputChecklist";
+import { TeacherType } from "../types/teacher.types";
+import { RoleType } from "../types/Enums/roleEnum.types";
+import {
+  validateIsraeliID,
+  validateEmail,
+  validatePhone,
+  validatePassword,
+} from "../utils/validators";
+import { FieldType } from "../types/field.types";
 
-// useState!
-export const TeacherSignUpPage = () => {
+export const SignUpTeacher = () => {
   const [password, setPassword] = useState("");
 
   const teacherFields: FieldType[] = [
@@ -16,7 +20,9 @@ export const TeacherSignUpPage = () => {
       name: "password",
       label: "Password",
       required: true,
-      customInput: <PasswordInputChecklist value={password} onChange={setPassword} />,
+      customInput: (
+        <PasswordInputChecklist value={password} onChange={setPassword} />
+      ),
     },
     { name: "name", label: "Full Name", required: true },
     { name: "dateOfBirth", label: "Date of Birth", type: "date", required: true },
@@ -28,7 +34,6 @@ export const TeacherSignUpPage = () => {
   const handleSubmit = (data: Record<string, any>) => {
     data.password = password;
 
-    // Validate date of birth
     const date = new Date(data.dateOfBirth || "");
     const now = new Date();
     const earliestDate = new Date("1900-01-01");
@@ -42,7 +47,7 @@ export const TeacherSignUpPage = () => {
       return;
     }
     if (!validatePassword(password)) {
-      alert("Password does not meet security requirements.");
+      alert("Password does not meet requirements.");
       return;
     }
     if (!validateEmail(data.email)) {
@@ -58,15 +63,15 @@ export const TeacherSignUpPage = () => {
       id: data.id,
       password: data.password,
       name: data.name,
-      dateOfBirth: new Date(data.dateOfBirth),
+      dateOfBirth: date,
       address: data.address,
       email: data.email,
       phone: data.phone,
       role: RoleType.Admin,
     };
 
-    console.log("Teacher object:", teacher);
-    // TODO: API call to send data
+    console.log("Teacher to register:", teacher);
+    // TODO: send teacher to API
   };
 
   return (
@@ -75,7 +80,11 @@ export const TeacherSignUpPage = () => {
       fields={teacherFields}
       onSubmit={handleSubmit}
       submitText="Register"
-      footer={<p>Already registered? <a href="/auth/login">Login here</a></p>}
+      footer={
+        <p>
+          Already registered? <a href="/signInTeacher">Login here</a>
+        </p>
+      }
     />
   );
 };

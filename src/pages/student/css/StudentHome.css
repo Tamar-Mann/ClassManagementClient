@@ -1,0 +1,16 @@
+.student-home {
+  padding: 40px;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.student-home h2 {
+  color: #F25C3B;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.student-home p {
+  color: #444;
+  font-size: 1.1rem;
+}

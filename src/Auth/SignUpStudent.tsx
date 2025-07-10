@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-import { AuthForm } from "../../components/AuthForm";
-import { PasswordInputChecklist } from "../../components/PasswordInputChecklist";
-import { StudentType } from "../../types/student.types";
+import { AuthForm } from "./AuthForm";
+import { PasswordInputChecklist } from "./PasswordInputChecklist";
+import { StudentType } from "../types/student.types";
 import {
   validateIsraeliID,
   validateEmail,
   validatePhone,
   validatePassword,
-} from "../../utils/validators";
+} from "../utils/validators";
+import { FieldType } from "../types/field.types";
 
-//alerts?!...
-
-export const StudentSignUpPage = () => {
+export const SignUpStudent = () => {
   const [password, setPassword] = useState("");
 
-  const studentFields = [
+  const studentFields: FieldType[] = [
     { name: "id", label: "ID Number", required: true },
     {
       name: "password",
@@ -39,9 +38,8 @@ export const StudentSignUpPage = () => {
   ];
 
   const handleSubmit = (data: Partial<StudentType>) => {
-    const pw = password || (data.password ?? "");
+    const pw = password || data.password || "";
 
-    // Validate date of birth
     const date = new Date(data.dateOfBirth || "");
     const now = new Date();
     const earliestDate = new Date("1900-01-01");
@@ -55,9 +53,7 @@ export const StudentSignUpPage = () => {
       return;
     }
     if (!validatePassword(pw)) {
-      alert(
-        "Password must include at least 8 characters, uppercase letter, lowercase letter, number, and special character"
-      );
+      alert("Password must meet security requirements");
       return;
     }
     if (!validateEmail(data.email || "")) {
@@ -86,9 +82,8 @@ export const StudentSignUpPage = () => {
     });
 
     formData.append("password", pw);
-
     console.log("Sending to server:", Array.from(formData.entries()));
-    // await axios.post("/api/student", formData);
+    // TODO: send formData to API
   };
 
   return (
@@ -99,7 +94,7 @@ export const StudentSignUpPage = () => {
       submitText="Register"
       footer={
         <p>
-          Already registered? <a href="/auth/login">Login here</a>
+          Already registered? <a href="/signInStudent">Login here</a>
         </p>
       }
     />
