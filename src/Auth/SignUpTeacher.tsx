@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { AuthForm } from "./AuthForm";
-import { PasswordInputChecklist } from "./PasswordInputChecklist";
+import { AuthForm } from "../components/AuthForm";
+import { PasswordInputChecklist } from "../components/PasswordInputChecklist";
 import {
   validateIsraeliID,
   validateEmail,

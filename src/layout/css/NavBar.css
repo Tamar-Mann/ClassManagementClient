@@ -1,82 +1,57 @@
-/* מבנה כללי של ה־NavBar */
 .navbar {
   display: flex;
-  flex-direction: row;          /* תצוגה אופקית */
-  align-items: stretch;         /* הלוגו תופס את כל הגובה */
-  padding: 0;
-  margin: 0;
-  height: 128px;                /* גובה אחיד */
-  background-color: #ffffff;    /* לוודא שתואם לרקע של הלוגו */
+  flex-direction: row;
+  align-items: center;
+  height: 128px;
+  background-color: #ffffff;
   border-bottom: 1px solid #ddd;
   font-family: "Segoe UI", sans-serif;
+  padding: 0 24px;
 }
 
-/* תמונת הלוגו בצד */
-.navbar-logo {
-  display: block;
-  height: 128ex;        
-  max-height: 128px;
-  width: 25%;
-  display: block;
-}
-
-/* אזור הקישורים */
-.nav-content {
+/* הלוגו בצד שמאל */
+.navbar-logo-container {
+  height: 100%;
   display: flex;
   align-items: center;
-  padding: 0 24px;
-  gap: 24px;
+}
+
+.logo-img {
+  height: 100%;
+  width: auto;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/* האזור של הקישורים */
+.nav-links {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 40px;
+  margin-left: 32px;
 }
 
-/* כותרת פנימית אם צריך */
-.nav-title {
-  font-size: 1.1rem;
-  color: #4369F2;
-  font-weight: bold;
-}
-
-/* תפריט אופקי */
+/* הסרת קווים תחתונים ונקודות */
 .navbar ul {
   list-style: none;
   display: flex;
-  gap: 20px;
-  padding: 0;
+  gap: 24px;
   margin: 0;
+  padding: 0;
 }
 
 .navbar li a {
   text-decoration: none;
   color: #333;
   font-weight: 500;
-  transition: color 0.3s ease;
 }
 
 .navbar li a:hover {
   color: #F25C3B;
 }
-
-.logo-area {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 0;
-}
-
-.logo-img {
-  height: 128px; /* מוגדל! */
-  width: auto;
-}
-
-.navbar {
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd;
-  padding: 12px 24px;
-  display: flex;
-  flex-direction: column;
-  font-family: "Segoe UI", sans-serif;
-}
-
-.nav-links {
-  margin-top: 12px;
+.logo-img:focus {
+  outline: none;
 }

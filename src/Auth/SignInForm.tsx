@@ -1,6 +1,6 @@
 // File: src/Auth/SignInForm.tsx
 import React from "react";
-import { AuthForm } from "./AuthForm";
+import { AuthForm } from "../components/AuthForm";
 import { FieldType } from "../types/field.types";
 
 
