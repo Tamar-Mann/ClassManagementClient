@@ -1,0 +1,16 @@
+.teacher-home {
+  padding: 40px;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.teacher-home h2 {
+  color: #4369F2;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.teacher-home p {
+  color: #444;
+  font-size: 1.1rem;
+}

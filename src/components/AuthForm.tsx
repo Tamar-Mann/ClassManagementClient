@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { FieldType } from "../types/field.types";
 import "./css/AuthForm.css";
 
-export const AuthForm: React.FC<{
+type Props = {
   title: string;
   fields: FieldType[];
   onSubmit: (data: Record<string, any>) => void;
   submitText?: string;
   footer?: React.ReactNode;
-}> = ({ title, fields, onSubmit, submitText = "Submit", footer }) => {
+};
+
+export const AuthForm: React.FC<Props> = ({
+  title,
+  fields,
+  onSubmit,
+  submitText = "Submit",
+  footer,
+}) => {
   const [formData, setFormData] = useState<Record<string, any>>({});
 
   const handleChange = (
@@ -42,7 +50,7 @@ export const AuthForm: React.FC<{
               type={type}
               required={required}
               onChange={handleChange}
-              {...(type !== "file" ? { value: formData[name] || "" } : {})}
+              value={type !== "file" ? formData[name] || "" : undefined}
             />
           )}
         </div>

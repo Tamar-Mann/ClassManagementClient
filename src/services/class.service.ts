@@ -12,6 +12,12 @@ export const classService = {
     return res.data;
   },
 
+  // עדיין לא קים בשרת
+  getByTeacherId: async (teacherId: string): Promise<ClassType[]> => {
+  const res = await axios.get(`/api/Class/ByTeacher/${teacherId}`);
+  return res.data;
+  },
+
   create: async (data: FormData): Promise<ClassType> => {
     const res = await axios.post("/api/Class", data);
     return res.data;
@@ -31,3 +37,5 @@ export const classService = {
     await axios.get(`/api/Class/SolverInlayStudentsInSeats/${classId}`);
   },
 };
+
+

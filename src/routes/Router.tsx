@@ -1,50 +1,71 @@
-// // router/index.tsx
-// import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import HomePage from "../pages/HomePage";
-// import { TeacherSignUpPage } from "../pages/SignUp/SignUpTeacher";
-// import { Paths } from "./paths";
-// import { StudentSignUpPage } from "../pages/SignUp/SignUpStudent";
-// import { StudentSignInPage } from "../pages/SignIn/SingInStudent";
-
-// const router = createBrowserRouter([
-//   {
-//     path: Paths.home, 
-//     element: <HomePage />,
-//   },
-//   {
-//     path: Paths.signUpTeacher, 
-//     element: <TeacherSignUpPage />,
-//   },
-//   {
-//     path: Paths.signUpStudent, 
-//     element: <StudentSignUpPage />,
-//   },
-//    {
-//     path: Paths.signInStudent, 
-//     element: <StudentSignInPage />,
-//   },
-// ]);
-
-// const Router = () => {
-//   return <RouterProvider router={router} />;
-// };
-
-// export default Router;
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "../pages/HomePage";
-import { TeacherSignUpPage } from "../pages/SignUp/SignUpTeacher";
-import { StudentSignUpPage } from "../pages/SignUp/SignUpStudent";
-import { StudentSignInPage } from "../pages/SignIn/SingInStudent";
-// import SeatingPage from "../pages/SeatingPage";
+import Home from "../pages/Home";
+import { SignUpTeacher } from "../Auth/SignUpTeacher";
+import { SignUpStudent } from "../Auth/SignUpStudent";
+import { SignInTeacher } from "../Auth/SignInTeacher";
+import { SignInStudent } from "../Auth/SignInStudent";
+import StudentHome from "../pages/student/StudentHome";
+import TeacherHome from "../pages/teacher/TeacherHome";
+import AppLayout from "../layout/AppLayout"; // עטיפה כוללת עם NavBar
 import { Paths } from "./paths";
 
 const router = createBrowserRouter([
-  { path: Paths.home, element: <HomePage /> },
-  { path: Paths.signUpTeacher, element: <TeacherSignUpPage /> },
-  { path: Paths.signUpStudent, element: <StudentSignUpPage /> },
-  { path: Paths.signInStudent, element: <StudentSignInPage /> },
-  // { path: Paths.seating, element: <SeatingPage /> },
+  {
+    path: Paths.home,
+    element: (
+      <AppLayout>
+        <Home />
+      </AppLayout>
+    ),
+  },
+  {
+    path: Paths.signUpTeacher,
+    element: (
+      <AppLayout>
+        <SignUpTeacher />
+      </AppLayout>
+    ),
+  },
+  {
+    path: Paths.signUpStudent,
+    element: (
+      <AppLayout>
+        <SignUpStudent />
+      </AppLayout>
+    ),
+  },
+  {
+    path: Paths.signInTeacher,
+    element: (
+      <AppLayout>
+        <SignInTeacher />
+      </AppLayout>
+    ),
+  },
+  {
+    path: Paths.signInStudent,
+    element: (
+      <AppLayout>
+        <SignInStudent />
+      </AppLayout>
+    ),
+  },
+  {
+    path: Paths.homeStudent,
+    element: (
+      <AppLayout>
+        <StudentHome />
+      </AppLayout>
+    ),
+  },
+  {
+    path: Paths.homeTeacher,
+    element: (
+      <AppLayout>
+        <TeacherHome />
+      </AppLayout>
+    ),
+  },
 ]);
 
 const Router = () => {

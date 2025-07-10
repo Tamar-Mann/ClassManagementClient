@@ -1,0 +1,59 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 128px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  font-family: "Segoe UI", sans-serif;
+  padding: 0 24px;
+}
+
+/* הלוגו בצד שמאל */
+.navbar-logo-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 100%;
+  width: auto;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/* האזור של הקישורים */
+.nav-links {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 40px;
+  margin-left: 32px;
+}
+
+/* הסרת קווים תחתונים ונקודות */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.navbar li a:hover {
+  color: #F25C3B;
+}
+.logo-img:focus {
+  outline: none;
+}
+
+

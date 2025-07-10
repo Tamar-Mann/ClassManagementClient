@@ -1,7 +1,6 @@
 import React from "react";
 import "./css/PasswordInputChecklist.css";
 
-
 type Props = {
   value: string;
   onChange: (value: string) => void;
@@ -9,13 +8,18 @@ type Props = {
   name?: string;
 };
 
-export const PasswordInputChecklist: React.FC<Props> = ({ value, onChange, id, name }) => {
+export const PasswordInputChecklist: React.FC<Props> = ({
+  value,
+  onChange,
+  id,
+  name,
+}) => {
   const requirements = [
-    { label: "at least 8 chars", test: (pw: string) => pw.length >= 8 },
-    { label: "upper letter", test: (pw: string) => /[A-Z]/.test(pw) },
-    { label: "lower letter", test: (pw: string) => /[a-z]/.test(pw) },
-    { label: "digit", test: (pw: string) => /\d/.test(pw) },
-    { label: "special char", test: (pw: string) => /[\W_]/.test(pw) },
+    { label: "At least 8 characters", test: (pw: string) => pw.length >= 8 },
+    { label: "Uppercase letter", test: (pw: string) => /[A-Z]/.test(pw) },
+    { label: "Lowercase letter", test: (pw: string) => /[a-z]/.test(pw) },
+    { label: "Number", test: (pw: string) => /\d/.test(pw) },
+    { label: "Special character", test: (pw: string) => /[\W_]/.test(pw) },
   ];
 
   return (
@@ -33,7 +37,7 @@ export const PasswordInputChecklist: React.FC<Props> = ({ value, onChange, id, n
           const passed = test(value);
           return (
             <li key={label} className={passed ? "passed" : "not-passed"}>
-              <span>{passed ? "👍" : "👎"}</span> {label}
+              <span>{passed ? "✅" : "❌"}</span> {label}
             </li>
           );
         })}

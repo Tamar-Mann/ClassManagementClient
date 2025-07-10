@@ -1,0 +1,46 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.home-container {
+  text-align: center;
+  padding: 50px 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.home-container h1 {
+  font-size: 2.2rem;
+  color: #4369F2;
+  margin-bottom: 10px;
+}
+
+.home-container p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.home-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.home-links a {
+  text-decoration: none;
+  color: #fff;
+  background-color: #4369F2;
+  padding: 10px 20px;
+  border-radius: 10px;
+  width: 240px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.home-links a:hover {
+  background-color: #2e50ca;
+}
