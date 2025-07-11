@@ -12,9 +12,8 @@ export const classService = {
     return res.data;
   },
 
-  // עדיין לא קים בשרת
   getByTeacherId: async (teacherId: string): Promise<ClassType[]> => {
-  const res = await axios.get(`/api/Class/ByTeacher/${teacherId}`);
+  const res = await axios.get(`/api/Class/GetClassesByTeacher/${teacherId}`);
   return res.data;
   },
 

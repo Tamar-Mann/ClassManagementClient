@@ -1,0 +1,25 @@
+/* component/ChairForm/CSS/AddChairForm.css */
+.add-chair-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: auto;
+}
+
+.add-chair-form label {
+  font-weight: bold;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.add-chair-form button {
+  padding: 0.5rem;
+  border: none;
+  background-color: #5271ff;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}

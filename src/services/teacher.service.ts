@@ -15,11 +15,7 @@ export const teacherService = {
   },
 
   create: async (data: FormData): Promise<TeacherType> => {
-    const res = await axios.post("/api/Teacher", data,  {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const res = await axios.post("/api/Teacher", data,);
     return res.data;
   },
 

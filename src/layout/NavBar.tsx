@@ -3,7 +3,7 @@ import { useAppSelector } from "../redux/hooks";
 import { RoleType } from "../types/Enums/roleEnum.types";
 import logo from "../assets/logoClass.png";
 import StudentNav from "../components/StudentNav";
-import TeacherNav from "../components/TeacherNav";
+import TeacherNav from "../components/TeacherNavItem.tsx/TeacherNav";
 import "./css/NavBar.css";
 
 const NavBar = () => {
