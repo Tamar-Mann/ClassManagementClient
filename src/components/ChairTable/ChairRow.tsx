@@ -6,7 +6,7 @@ const ChairRow: React.FC<{ chair: ChairType }> = ({ chair }) => {
   return (
     <tr className="chair-row">
       <td>{chair.id}</td>
-      <td>{chair.row}</td>
+      <td>{chair.serialNumberByClass}</td>
       <td>{chair.isNearTheDoor ? "Yes" : "No"}</td>
       <td>{chair.isNearTheWindow ? "Yes" : "No"}</td>
       {/* <td className="chair-actions">

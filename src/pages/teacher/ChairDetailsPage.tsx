@@ -19,8 +19,7 @@ const ChairDetailsPage = () => {
   return (
     <div style={{ padding: "2rem" }}>
       <h2>Chair {chair.id}</h2>
-      <p><strong>Row:</strong> {chair.row}</p>
-      <p><strong>Column:</strong> {chair.colum}</p>
+      <p><strong>Serial number:</strong> {chair.serialNumberByClass}</p>
       <p><strong>Near Door:</strong> {chair.isNearTheDoor ? "Yes" : "No"}</p>
       <p><strong>Near Window:</strong> {chair.isNearTheWindow ? "Yes" : "No"}</p>
       {/* פעולות ניהול עתידיות */}
