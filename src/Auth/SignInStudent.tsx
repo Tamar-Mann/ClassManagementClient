@@ -18,9 +18,12 @@ export const SignInStudent = () => {
       const { email, password } = data;
 
       const token = await studentService.login({ email, password });
+      localStorage.setItem("token", token);
+      console.log("token from login:", token); // כאן תראי את הטוקן 
       dispatch(loginSuccess({ token }));
-
+      
       const user = extractUserFromToken(token);
+      console.log("user from token:", user);
       if (!user) throw new Error("Invalid token");
 
       dispatch(setUser(user));

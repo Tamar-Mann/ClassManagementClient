@@ -1,7 +1,10 @@
-export type ChairType  = {
-    id: string,
-    row: number,
-    colum: number,
-    isNearTheDoor: boolean,
-    isNearTheWindow: boolean
-}
+export type ChairType = {
+    id: string;
+    classId: number;
+    serialNumberByClass: number;
+    isNearTheDoor: boolean;
+    isNearTheWindow: boolean;
+    studentId?: string;      // optional: the student sitting on the chair
+    // nearbyChairs?: ChairType[];
+
+};

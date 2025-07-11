@@ -21,9 +21,6 @@ export const studentService = {
 
   create: async (data: FormData): Promise<StudentType> => {
     const res = await axios.post("/api/Student", data,  {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
     });
     return res.data;
   },
