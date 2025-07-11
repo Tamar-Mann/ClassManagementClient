@@ -6,7 +6,10 @@ export const Paths = {
     homeStudent:'/homeStudent',
     homeTeacher:'/homeTeacher',
     addClass: '/teacher/addClass',
-    addChair: '/teacher/addChair',
+    addChair: '/teacher/addChair/:classId',
+    classDetails: '/teacher/class/:classId',
+    studentDetails: '/teacher/student/:studentId',
+    chairDetails: '/teacher/chair/:chairId',
     home: '/home',
     seating: '/seating'
 }

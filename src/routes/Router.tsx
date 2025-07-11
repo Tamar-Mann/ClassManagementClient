@@ -9,6 +9,8 @@ import TeacherHome from "../pages/teacher/TeacherHome";
 import AddClassPage from "../pages/teacher/AddClassPage";
 import AddChairPage from "../pages/teacher/AddChairPage";
 import ClassPage from "../pages/teacher/ClassPage";
+import StudentDetailsPage from "../pages/teacher/StudentDetailsPage";
+import ChairDetailsPage from "../pages/teacher/ChairDetailsPage";
 import AppLayout from "../layout/AppLayout";
 import { Paths } from "./paths";
 
@@ -86,7 +88,30 @@ const router = createBrowserRouter([
       </AppLayout>
     ),
   },
-
+  {
+    path: Paths.classDetails,
+    element: (
+      <AppLayout>
+        <ClassPage />
+      </AppLayout>
+    ),
+  },
+  {
+    path: Paths.studentDetails,
+    element: (
+      <AppLayout>
+        <StudentDetailsPage />
+      </AppLayout>
+    ),
+  },
+  {
+    path: Paths.chairDetails,
+    element: (
+      <AppLayout>
+        <ChairDetailsPage />
+      </AppLayout>
+    ),
+  },
   
 ]);
 
