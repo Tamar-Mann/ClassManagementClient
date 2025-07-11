@@ -55,5 +55,8 @@
 .logo-img:focus {
   outline: none;
 }
-
-
+.nav-row {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* רווח בין הכותרת ל־Home */
+}
