@@ -19,6 +19,9 @@ export const SignInTeacher = () => {
       const { email, password } = data;
 
       const token = await teacherService.login({ email, password });
+      console.log("Received token:", token);
+      localStorage.setItem("token", token);
+      console.log(localStorage.getItem("token"));
       dispatch(loginSuccess({ token }));
 
       const user = extractUserFromToken(token);

@@ -1,0 +1,11 @@
+/* pages/teacher/CSS/AddClassPage.css */
+.add-class-page {
+  padding: 2rem;
+  text-align: center;
+}
+
+.add-class-page h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}

@@ -1,0 +1,11 @@
+/* pages/teacher/CSS/AddChairPage.css */
+.add-chair-page {
+  padding: 2rem;
+  text-align: center;
+}
+
+.add-chair-page h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
