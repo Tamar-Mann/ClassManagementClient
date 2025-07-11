@@ -13,6 +13,7 @@ export const classService = {
   },
 
   getByTeacherId: async (teacherId: string): Promise<ClassType[]> => {
+
   const res = await axios.get(`/api/Class/GetClassesByTeacher/${teacherId}`);
   return res.data;
   },
