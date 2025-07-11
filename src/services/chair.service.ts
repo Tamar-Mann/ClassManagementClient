@@ -3,8 +3,8 @@ import axios from "../utils/axiosInstance";
 import { ChairType } from "../types/chair.types";
 
 export const chairService = {
-  getAllChairsOfClass: async (classId: number): Promise<ChairType[]> => {
-    const res = await axios.get(`/api/Chair/AllChairsOfClass/${classId}`);
+  getChairsByClass: async (classId: number): Promise<ChairType[]> => {
+    const res = await axios.get(`/api/Chair/GetChairsByClass/${classId}`);
     return res.data;
   },
 

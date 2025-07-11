@@ -1,0 +1,24 @@
+.student-navbar {
+  background: #f0f4fa;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+.student-navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+.student-navbar li {
+  font-size: 1.1em;
+}
+.student-navbar a {
+  text-decoration: none;
+  color: #2a3b8f;
+  font-weight: bold;
+}
+.student-navbar a:hover {
+  color: #1e255e;
+}

@@ -6,5 +6,9 @@ export type StudentType  = UserType & {
     chairId?: number,
     arrImage?: string,
     fileImage: File | null
+    // favoriteFriends: StudentType[];
+    // nonFavoriteFriends: StudentType[];
 }
+
+
 

@@ -5,3 +5,4 @@ export type ClassType  = {
     name: string,
     countOfStudents: number
 }
+
