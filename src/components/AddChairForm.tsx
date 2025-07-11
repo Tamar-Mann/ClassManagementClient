@@ -22,16 +22,23 @@ const AddChairForm: React.FC<Props> = ({ classId }) => {
     chairData.append("serialNumberByClass", serialNumberByClass.toString());
     chairData.append("isNearTheDoor", isNearTheDoor ? "true" : "false");
     chairData.append("isNearTheWindow", isNearTheWindow ? "true" : "false");
-    chairData.append("studentId", ""); // שלח תמיד studentId ריק
+
+    // chairData.append("studentId", ""); // שלח תמיד studentId ריק
 
     // הדפסת כל הערכים שנשלחים
     console.log("Chair sent:", Object.fromEntries(chairData.entries()));
+    Array.from(chairData.entries()).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+    });
+
+
 
     try {
       await chairService.create(chairData);
       alert("Chair added successfully!");
     } catch (error: any) {
       console.error("Full error:", error);
+      console.log("Response data:", error.response?.data);
       alert(error?.response?.data?.message || "Failed to add chair");
     }
   };
