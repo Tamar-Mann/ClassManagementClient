@@ -1,4 +1,3 @@
-// component/ChairForm/AddChairForm.tsx
 import React, { useState } from "react";
 import { chairService } from "../services/chair.service";
 import "./css/AddChairForm.css";
@@ -8,46 +7,61 @@ type Props = {
 };
 
 const AddChairForm: React.FC<Props> = ({ classId }) => {
-  const [isFront, setIsFront] = useState(false);
-  const [isCenteral, setIsCenteral] = useState(false);
+  const [serialNumberByClass, setSerialNumberByClass] = useState<number>(1);
   const [isNearTheDoor, setIsNearTheDoor] = useState(false);
   const [isNearTheWindow, setIsNearTheWindow] = useState(false);
+
+  // הדפסת classId לבדיקה
+  console.log("classId prop:", classId);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("classId", classId.toString());
-    formData.append("isFront", isFront.toString());
-    formData.append("isCenteral", isCenteral.toString());
-    formData.append("isNearTheDoor", isNearTheDoor.toString());
-    formData.append("isNearTheWindow", isNearTheWindow.toString());
+    const chairData = new FormData();
+    chairData.append("classId", classId.toString());
+    chairData.append("serialNumberByClass", serialNumberByClass.toString());
+    chairData.append("isNearTheDoor", isNearTheDoor ? "true" : "false");
+    chairData.append("isNearTheWindow", isNearTheWindow ? "true" : "false");
+    chairData.append("studentId", ""); // שלח תמיד studentId ריק
+
+    // הדפסת כל הערכים שנשלחים
+    console.log("Chair sent:", Object.fromEntries(chairData.entries()));
 
     try {
-      await chairService.create(formData);
+      await chairService.create(chairData);
       alert("Chair added successfully!");
-    } catch (error) {
-      console.error(error);
-      alert("Failed to add chair");
+    } catch (error: any) {
+      console.error("Full error:", error);
+      alert(error?.response?.data?.message || "Failed to add chair");
     }
   };
 
   return (
     <form className="add-chair-form" onSubmit={handleSubmit}>
       <label>
-        <input type="checkbox" checked={isFront} onChange={() => setIsFront(!isFront)} />
-        Is Front
+        Serial Number:
+        <input
+          type="number"
+          min={1}
+          value={serialNumberByClass}
+          onChange={e => setSerialNumberByClass(Number(e.target.value))}
+          required
+        />
       </label>
       <label>
-        <input type="checkbox" checked={isCenteral} onChange={() => setIsCenteral(!isCenteral)} />
-        Is Centeral
-      </label>
-      <label>
-        <input type="checkbox" checked={isNearTheDoor} onChange={() => setIsNearTheDoor(!isNearTheDoor)} />
+        <input
+          type="checkbox"
+          checked={isNearTheDoor}
+          onChange={() => setIsNearTheDoor(!isNearTheDoor)}
+        />
         Is Near the Door
       </label>
       <label>
-        <input type="checkbox" checked={isNearTheWindow} onChange={() => setIsNearTheWindow(!isNearTheWindow)} />
+        <input
+          type="checkbox"
+          checked={isNearTheWindow}
+          onChange={() => setIsNearTheWindow(!isNearTheWindow)}
+        />
         Is Near the Window
       </label>
       <button type="submit">Add Chair</button>

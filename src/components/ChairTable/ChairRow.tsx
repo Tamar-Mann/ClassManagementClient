@@ -1,17 +1,15 @@
 import React from "react";
 import { ChairType } from "../../types/chair.types";
-import { Link } from "react-router-dom";
 
-const ChairRow: React.FC<{ chair: ChairType }> = ({ chair }) => {
+type Props = { chair: ChairType };
+
+const ChairRow: React.FC<Props> = ({ chair }) => {
   return (
-    <tr className="chair-row">
+    <tr>
       <td>{chair.id}</td>
       <td>{chair.serialNumberByClass}</td>
-      <td>{chair.isNearTheDoor ? "Yes" : "No"}</td>
-      <td>{chair.isNearTheWindow ? "Yes" : "No"}</td>
-      {/* <td className="chair-actions">
-        <Link to={`/chair/${chair.id}`}>Manage Chair</Link>
-      </td> */}
+      <td>{chair.isNearTheDoor ? "🚪" : "—"}</td>
+      <td>{chair.isNearTheWindow ? "🪟" : "—"}</td>
     </tr>
   );
 };

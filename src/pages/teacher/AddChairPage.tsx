@@ -1,18 +1,16 @@
-// pages/teacher/AddChairPage.tsx
-import React from "react";
 import { useParams } from "react-router-dom";
 import AddChairForm from "../../components/AddChairForm";
-import "./css/AddChairPage.css";
 
 const AddChairPage = () => {
   const { classId } = useParams();
+  console.log("classId from params:", classId);
 
-  if (!classId) return <p>Class ID is missing</p>;
+  if (!classId || isNaN(Number(classId))) return <p>Class ID is missing</p>;
 
   return (
     <div className="add-chair-page">
       <h1>Add Chair to Class {classId}</h1>
-      <AddChairForm classId={parseInt(classId)} />
+      <AddChairForm classId={Number(classId)} />
     </div>
   );
 };

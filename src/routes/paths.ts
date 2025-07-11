@@ -11,5 +11,5 @@ export const Paths = {
     studentDetails: '/teacher/student/:studentId',
     chairDetails: '/teacher/chair/:chairId',
     home: '/home',
-    seating: '/seating'
+    seating: '/teacher/class/:classId/seating'
 }

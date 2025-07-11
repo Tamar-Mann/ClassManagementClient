@@ -8,10 +8,10 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
-button,
-.add-chair-btn {
+.btn {
   padding: 0.5rem 1rem;
   font-weight: bold;
   border-radius: 8px;
@@ -20,4 +20,10 @@ button,
   border: none;
   cursor: pointer;
   text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #4056c8;
 }

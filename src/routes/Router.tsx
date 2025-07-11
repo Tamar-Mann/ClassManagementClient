@@ -13,6 +13,7 @@ import StudentDetailsPage from "../pages/teacher/StudentDetailsPage";
 import ChairDetailsPage from "../pages/teacher/ChairDetailsPage";
 import AppLayout from "../layout/AppLayout";
 import { Paths } from "./paths";
+import TeacherSeatingPage from "../pages/teacher/TeacherSeatingPage";
 
 
 const router = createBrowserRouter([
@@ -109,6 +110,14 @@ const router = createBrowserRouter([
     element: (
       <AppLayout>
         <ChairDetailsPage />
+      </AppLayout>
+    ),
+  },
+    {
+    path: Paths.seating,
+    element: (
+      <AppLayout>
+        <TeacherSeatingPage />
       </AppLayout>
     ),
   },
